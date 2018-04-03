@@ -14,6 +14,7 @@
             <br />
             SEARCH:
             <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
+            <asp:Image ID="Image1" runat="server" />
             <br />
             <br />
         </div>
