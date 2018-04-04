@@ -1,43 +1,58 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <!-- Insert global system.web node in any case -->
-  <system.web xdt:Transform="InsertIfMissing">
-  </system.web>
+  <!-- If system.codedom tag is absent -->
+  <system.codedom xdt:Transform="InsertIfMissing">
+  </system.codedom>
 
-  <!-- Search for system.web nodes:
-        - globally
-        - under location[@path='.']
-        - under location[count(@path)=0]
-        If any of above contains httpModules section - it will be reused. 
-        Otherwise it will be created under /configuration/system.web (globally)
-  -->
-  <system.web xdt:Locator="XPath(//system.web[(count(parent::location) = 0) or (count(parent::location[@path != '.' and count(@path) != 0]) = 0)])">
-    <httpModules xdt:Transform="InsertIfMissing">
-      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" xdt:Transform="Remove" xdt:Locator="Match(type)"/>
-      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" xdt:Transform="InsertIfMissing" xdt:Locator="Match(type)"/>
-    </httpModules>
-  </system.web>
-  
+  <!-- If compilers tag is absent -->
+  <system.codedom>
+    <compilers xdt:Transform="InsertIfMissing">
+    </compilers>
+  </system.codedom>
 
-  <!-- Insert global system.web node in any case -->
-  <system.webServer xdt:Transform="InsertIfMissing">
-  </system.webServer>
-  
-  <!-- Only one validation node is allowed to be deinfed globally or in global location tags. See explanaition above for httpModules on how it works -->
-  <system.webServer xdt:Locator="XPath(//system.webServer[(count(parent::location) = 0) or (count(parent::location[@path != '.' and count(@path) != 0]) = 0)])">
-    <validation validateIntegratedModeConfiguration="false" xdt:Transform="InsertIfMissing" />
-  </system.webServer>
+  <!-- If a .cs compiler is already present, the existing entry needs to be removed before inserting the new entry -->
+  <system.codedom>
+    <compilers>
+      <compiler
+        extension=".cs"
+        xdt:Transform="Remove"
+        xdt:Locator="Match(extension)" />
+    </compilers>
+  </system.codedom>
 
-  <!-- Only one modules node is allowed to be deinfed globally or in global location tags. 
-       Modules node may not be defined in the same place where validation node above is defined.
-       We need to remove all customer-renamed modules as remove tag relies on module name attribute
-       See explanaition above for httpModules on how it works
-  -->
-  <system.webServer xdt:Locator="XPath(//system.webServer[(count(parent::location) = 0) or (count(parent::location[@path != '.' and count(@path) != 0]) = 0)])">
-    <modules xdt:Transform="InsertIfMissing">
-      <remove name="ApplicationInsightsWebTracking" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)"/>
-      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" xdt:Transform="Remove" xdt:Locator="Match(type)"/>
-      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" xdt:Transform="InsertIfMissing" xdt:Locator="Match(type)"/>
-    </modules>
-  </system.webServer>
+  <!-- Inserting the new compiler -->
+  <system.codedom>
+    <compilers>
+      <compiler
+        language="c#;cs;csharp"
+        extension=".cs"
+        type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+        warningLevel="4"
+        compilerOptions="/langversion:default /nowarn:1659;1699;1701"
+        xdt:Transform="Insert" />
+    </compilers>
+  </system.codedom>
+
+  <!-- If a .vb compiler is already present, the existing entry needs to be removed before inserting the new entry -->
+  <system.codedom>
+    <compilers>
+      <compiler
+        extension=".vb"
+        xdt:Transform="Remove"
+        xdt:Locator="Match(extension)" />
+    </compilers>
+  </system.codedom>
+
+  <!-- Inserting the new compiler -->
+  <system.codedom>
+    <compilers>
+      <compiler
+        language="vb;vbs;visualbasic;vbscript"
+        extension=".vb"
+        type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+        warningLevel="4"
+        compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+"
+        xdt:Transform="Insert" />
+    </compilers>
+  </system.codedom>
 </configuration>
