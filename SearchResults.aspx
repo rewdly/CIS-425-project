@@ -7,16 +7,16 @@
     <title></title>
 </head>
 <body>
+        <form id="form1" runat="server">
         <div class="Heading">
             <asp:Image ID="imgLogo" runat="server" Height="168px" ImageUrl="http://devfloat.net/wp-content/uploads/2016/03/Books-Store-Logo.jpg" Width="236px" />
-        <p>
-            <ul>
-		        <li><a href= "https://Facebook.com" target= "_blank">Home</a></li>
-		        <li><a href= "https://Yelp.com" target = "_blank">Register</a></li>
-		        <li><a href= "https://Google.com" target = "_blank">Login</a></li>
-		        <li><a href= "https://AngelList.com" target = "_blank">Cart</a></li>
-	        </ul>
-        </p>
+            Home/
+        <asp:HyperLink ID="registerLink" runat="server">Register</asp:HyperLink>
+&nbsp;/
+        <asp:HyperLink ID="logInLink" runat="server">Log In</asp:HyperLink>
+&nbsp;/
+        <asp:HyperLink ID="cartLink" runat="server">Cart</asp:HyperLink>
+            <br />
         <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
         <asp:Button ID="btnSearch" runat="server" Text="Search" />
         <br />
@@ -55,17 +55,23 @@
         <hr />
     </h1>
     <footer>
-        <ul>
-		    <li><a href= "https://Facebook.com" target= "_blank">My Account</a></li>
-		    <li><a href= "https://Yelp.com" target = "_blank">About Us</a></li>
-		    <li><a href= "https://Google.com" target = "_blank">Order History</a></li>
-		    <li><a href= "https://AngelList.com" target = "_blank">Privacy Policy</a></li>
-		    <li><a href= "https://Twitter.com" target = "_blank">Contact Us</a></li>
-	    </ul>
-        <p>Book Store Inc.</p>
-        <p>5555 Fifty-Fifth Ave. Phoenix, AZ</p>
-        <p>1-800-555-5555</p>
-        <p>Contact@BookStore.com</p>
+        <asp:HyperLink ID="myAccountLink" runat="server" CssClass="auto-style2">My Account</asp:HyperLink>
+        <br />
+        <asp:HyperLink ID="aboutUsLink" runat="server" CssClass="auto-style2">About Us</asp:HyperLink>
+        <br />
+        <asp:HyperLink ID="orderHistoryLink" runat="server" CssClass="auto-style2">Order History</asp:HyperLink>
+        <br />
+        <asp:HyperLink ID="todaysDealsLink" runat="server" CssClass="auto-style2">Today&#39;s Deals</asp:HyperLink>
+        <br />
     </footer>
+            <p>
+        <asp:HyperLink ID="myAccountLink4" runat="server" style="z-index: 1; left: 66px; top: 755px; position: absolute">My Account</asp:HyperLink>
+            </p>
+        </form>
+        <p>
+            Contact Information<br />
+            Address: 123 W Cantarro Dr<br />
+            Phone: (654)-976-3496<br />
+            Email:BestBooks@gmail.com</p>
 </body>
 </html>
